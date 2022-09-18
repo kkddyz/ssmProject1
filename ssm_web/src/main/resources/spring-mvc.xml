@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--开启controller的注解扫描-->
+    <context:component-scan base-package="com.itheima.ssm.controller">
+    </context:component-scan>
+
+    <!--配置视图解析器-->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- JSP文件所在的目录 -->
+        <property name="prefix" value="/pages/"/>
+        <!-- 文件的后缀名 -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--设置静态资源不过滤
+        前端控制器会拦截所有的请求,然后将请求转发给对应的Controller函数;
+        但是由于静态资源也会被拦截到,由于没有对应的controller会被抛弃,返回404;
+        所以我们要配置前端控制器,不能拦截静态资源
+    -->
+    <mvc:resources location="/css/" mapping="/css/**"/> <!-- 样式 -->
+    <mvc:resources location="/images/" mapping="/images/**"/> <!-- 图片 -->
+    <mvc:resources location="/js/" mapping="/js/**"/> <!-- javascript -->
+    <mvc:resources location="/plugins/" mapping="/plugins/**"/>
+
+    <!--开启注解支持-->
+    <mvc:annotation-driven/>
+</beans>
