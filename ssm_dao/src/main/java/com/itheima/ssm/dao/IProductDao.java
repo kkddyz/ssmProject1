@@ -23,4 +23,8 @@ public interface IProductDao {
             "(#{productNum}, #{productName}, #{cityName}, #{departureTime}, " +
             "#{productPrice},#{productDesc}, #{productStatus})")
     void save(Product product) throws Exception;
+
+
+    @Select("select * from product where id = #{id}")
+    Product findById(int id) throws Exception;
 }
